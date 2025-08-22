@@ -10,7 +10,7 @@ import org.generation.util.Imprimible;
 public abstract class Cuenta implements Imprimible{
 	//Los números de cuenta del banco iniciarán después de 1000
 	private static int consecutivo=1000; 
-	protected double saldo;
+	private double saldo;
 	private int numeroCuenta; 
 	private String numeroCliente;
 	private Date fechaApertura;
@@ -23,7 +23,7 @@ public abstract class Cuenta implements Imprimible{
      * @param nombreBanco String - Nombre del banco 
     */
 	
-	public Cuenta(double saldo, String numeroCliente, Date fechaApertura, 
+	public Cuenta(double saldo, int numeroCuenta, String numeroCliente, Date fechaApertura, 
 													String nombreCliente) {
 	    this.saldo = saldo;
 	    Cuenta.consecutivo++;
@@ -35,9 +35,11 @@ public abstract class Cuenta implements Imprimible{
 	    }//if numCliente.equals
 		this.fechaApertura = fechaApertura;
 	}//constructor
+	
 	public Cuenta(double saldo) {
 		this.saldo=saldo;
 	}//constructor
+
 	//Los métodos abstract deben ser implementados en la clase que hereda
 	public abstract double retiro(double cantidad); 
 	public abstract double deposito(double cantidad);
@@ -79,6 +81,11 @@ public abstract class Cuenta implements Imprimible{
 				+ ", Fecha de Apertura=" + getFechaApertura()
 				+ ", Nombre del Cliente=" + getNombreCliente();
 	}//toString
+
+	public double getSaldo(double saldo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
  	
 }//class
 
