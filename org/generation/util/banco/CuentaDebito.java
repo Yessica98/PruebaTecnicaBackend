@@ -1,50 +1,50 @@
+package org.generation.util.banco;
 import java.util.Date;
 
-import org.generation.util.banco.Cuenta;
 
 public class CuentaDebito extends Cuenta {
 	private double montoMinimo;
-			
-	public CuentaDebito(double saldo, int numeroCuenta, String numeroCliente,Date fechaApertura, String nombreCliente, double montoMinimo) {
-		super(saldo, numeroCuenta, numeroCliente, fechaApertura, nombreCliente);	
+	
+	public CuentaDebito(double saldo, String numeroCliente, Date fechaApertura , double montoMinimo, String nombreCliente) {
+		super(saldo,numeroCliente,fechaApertura,nombreCliente);
 		this.montoMinimo = montoMinimo;
-	}
-
+		} //constructor
+	
 	public double getMontoMinimo() {
 		return montoMinimo;
-	}
+	}//getMontoMinimo
 
 	public void setMontoMinimo(double montoMinimo) {
 		this.montoMinimo = montoMinimo;
-	}
+	}//setMontoMinimo
 
 	@Override
 	public double retiro(double cantidad) {
-		if (saldo <=cantidad) {
-			System.out.println("No es posible retirar");
-		} else {
+		if (cantidad > 0 && cantidad <= saldo ) {
+			saldo -= cantidad;
 			return cantidad;
 		}
-			
-			
+		return 0;
 	}
 
 	@Override
 	public double deposito(double cantidad) {
-		// TODO Auto-generated method stub
-		return cantidad;
+		if (cantidad > 0) {
+			saldo += cantidad;
+			return cantidad;
+		}
+		return 0;
 	}
 
 	@Override
-	public double getSaldo(double saldo) {
+	public double getSaldo() {
 		// TODO Auto-generated method stub
-		return saldo;
+		return saldo; 
 	}
 	
 	public String toString() {
 		return "Cuenta Débito [" + super.toString() + 
 				", Monto mínimo=" + montoMinimo + "]";
 	}//toString
-	
 
-}
+} //Cuenta

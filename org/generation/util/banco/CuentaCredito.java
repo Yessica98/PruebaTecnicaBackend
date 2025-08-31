@@ -1,20 +1,20 @@
-import org.generation.util.banco.Cuenta;
+package org.generation.util.banco;
 import java.util.Date;
 
 public class CuentaCredito extends Cuenta {
 	private double limite;
 	private double tasa;
 	private Date fechaCorte;
-	private Date FechaLimitePago;
 	
-	
-	public CuentaCredito(double saldo, int numeroCuenta, String numeroCliente, Date fechaApertura, String nombreCliente, double limite, double tasa, Date fechaCorte,Date fechaLimitePago) {
-		super(saldo, numeroCuenta, numeroCliente, fechaApertura, nombreCliente);
+	public CuentaCredito(double saldo, String numeroCliente, Date fechaApertura,Date fechaCorte, double tasa, double limite,
+			String nombreCliente) {
+		super(saldo,numeroCliente,fechaApertura,nombreCliente);
 		this.limite = limite;
 		this.tasa = tasa;
 		this.fechaCorte = fechaCorte;
-		this.FechaLimitePago = fechaLimitePago;
-	}
+		
+	} //constructor
+	
 
 	public double getLimite() {
 		return limite;
@@ -32,6 +32,7 @@ public class CuentaCredito extends Cuenta {
 		this.tasa = tasa;
 	}
 
+
 	public Date getFechaCorte() {
 		return fechaCorte;
 	}
@@ -40,30 +41,32 @@ public class CuentaCredito extends Cuenta {
 		this.fechaCorte = fechaCorte;
 	}
 
-	public Date getFechaLimitePago() {
-		return FechaLimitePago;
-	}
-
-	public void setFechaLimitePago(Date fechaLimitePago) {
-		FechaLimitePago = fechaLimitePago;
-	}
-
 	@Override
 	public double retiro(double cantidad) {
-		// TODO Auto-generated method stub
-		return 0;
+		double retiro = 0;
+		double comision = 0;
+		double nuevoSaldo = 0;
+		retiro = limite + saldo;
+		if (cantidad <= retiro) {
+			comision = cantidad * 0.05;
+			nuevoSaldo = saldo - retiro - comision;
+			return nuevoSaldo;
+		} else {
+			nuevoSaldo = saldo -5;
+		}
+		return nuevoSaldo;
 	}
 
 	@Override
 	public double deposito(double cantidad) {
-		// TODO Auto-generated method stub
-		return 0;
+		saldo += cantidad ;
+		return cantidad;
 	}
-
-
-	public double getSaldo(double saldo) {
-		double saldoActual = saldo * 3;
-		return saldoActual;
+	
+	@Override
+	public double getSaldo() {
+			saldo -= 3;
+		return saldo; 
 	}
 	
 	public String toString() {

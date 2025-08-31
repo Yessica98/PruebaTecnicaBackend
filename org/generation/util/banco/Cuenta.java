@@ -7,10 +7,10 @@ import java.util.Random;
 
 import org.generation.util.Imprimible;
 
-public abstract class Cuenta implements Imprimible{
+public abstract class Cuenta /*implements Imprimible*/{
 	//Los números de cuenta del banco iniciarán después de 1000
 	private static int consecutivo=1000; 
-	private double saldo;
+	protected double saldo;
 	private int numeroCuenta; 
 	private String numeroCliente;
 	private Date fechaApertura;
@@ -23,28 +23,34 @@ public abstract class Cuenta implements Imprimible{
      * @param nombreBanco String - Nombre del banco 
     */
 	
-	public Cuenta(double saldo, int numeroCuenta, String numeroCliente, Date fechaApertura, 
+	public Cuenta(double saldo, String numeroCliente, Date fechaApertura, 
 													String nombreCliente) {
 	    this.saldo = saldo;
 	    Cuenta.consecutivo++;
 	    this.numeroCuenta = Cuenta.consecutivo;
 	    this.setNombreCliente(nombreCliente);
 		this.numeroCliente = numeroCliente;
+		
 		if (numeroCliente.equals("0")){ //Se genera un número de cliente aleatorio
 			this.numeroCliente =Integer.toString(Math.abs(new Random().nextInt()));
 	    }//if numCliente.equals
+		
 		this.fechaApertura = fechaApertura;
 	}//constructor
 	
 	public Cuenta(double saldo) {
-		this.saldo=saldo;
+		//this.saldo=saldo;
+		this (saldo,"0",new Date(),"Cliente sin nombre"); //llamando al contructor de arriba
 	}//constructor
-
+	
 	//Los métodos abstract deben ser implementados en la clase que hereda
 	public abstract double retiro(double cantidad); 
 	public abstract double deposito(double cantidad);
-	public abstract double getSaldo();
+	public abstract  double getSaldo();
 	
+//	protected double getSaldo() {
+//		return saldo;
+//	}
 	protected void setSaldo(double saldo) {
 		this.saldo = saldo;
 	}//setSaldo
@@ -81,14 +87,8 @@ public abstract class Cuenta implements Imprimible{
 				+ ", Fecha de Apertura=" + getFechaApertura()
 				+ ", Nombre del Cliente=" + getNombreCliente();
 	}//toString
-
-	public double getSaldo(double saldo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
  	
 }//class
-
 
 
 
